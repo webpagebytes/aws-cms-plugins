@@ -34,8 +34,6 @@ import com.webpagebytes.cms.WPBAdminDataStorage;
 import com.webpagebytes.cms.cmsdata.WPBAdminFieldKey;
 import com.webpagebytes.cms.cmsdata.WPBAdminFieldStore;
 import com.webpagebytes.cms.cmsdata.WPBAdminFieldTextStore;
-import com.webpagebytes.cms.engine.WPBAdminDataStorageListener;
-import com.webpagebytes.cms.engine.WPBAdminDataStorageListener.AdminDataStorageOperation;
 import com.webpagebytes.cms.exception.WPBIOException;
 import com.webpagebytes.cms.exception.WPBSerializerException;
 
@@ -49,8 +47,6 @@ public class WPBAwsSdbAdminDataStorage implements WPBAdminDataStorage {
 	public static final String CONFIG_DOMAIN = "domain";
 	public static final String CLASS_ATRIBUTE = "wpbclass";
 	public static final Integer STRING_CHUNK_SIZE = 249;
-	private Vector<WPBAdminDataStorageListener> storageListeners = new Vector<WPBAdminDataStorageListener>();
-	private boolean notificationsFlag = true;
 	
 	protected AmazonSimpleDBClient sdbClient;
 	protected String domainName;
@@ -471,9 +467,7 @@ public class WPBAwsSdbAdminDataStorage implements WPBAdminDataStorage {
 			PutAttributesRequest putAttributesRequest = createAttributesRequests(record);
 			
 			sdbClient.putAttributes(putAttributesRequest);
-			
-			notifyOperation(record, AdminDataStorageOperation.CREATE_RECORD, record.getClass());	
-			
+						
 		} catch (Exception e)
 		{
 			throw new WPBIOException("cannot create record", e);
@@ -487,9 +481,7 @@ public class WPBAwsSdbAdminDataStorage implements WPBAdminDataStorage {
 			PutAttributesRequest putAttributesRequest = createAttributesRequests(record);
 			
 			sdbClient.putAttributes(putAttributesRequest);
-			
-			notifyOperation(record, AdminDataStorageOperation.CREATE_RECORD, record.getClass());	
-			
+						
 		} catch (Exception e)
 		{
 			throw new WPBIOException("cannot create record with key ", e);
@@ -554,61 +546,10 @@ public class WPBAwsSdbAdminDataStorage implements WPBAdminDataStorage {
 		return internalQuery(dataClass, selectRequest);		
 	}
 
-	public void addStorageListener(WPBAdminDataStorageListener listener) {
-		synchronized (storageListeners)
-		{
-			storageListeners.add(listener);
-		}		
-	}
-
-	public void removeStorageListener(WPBAdminDataStorageListener listener) {
-		synchronized (storageListeners)
-		{
-			for(int i=0; i< storageListeners.size(); i++)
-			{
-				if (storageListeners.get(i) == listener)
-				{
-					storageListeners.remove(i);
-					return;
-				}
-			}
-		}
-	}
-	
-	protected<T> void notifyOperation(T obj, WPBAdminDataStorageListener.AdminDataStorageOperation operation, Class<? extends Object> type)
-	{
-	    if (notificationsFlag)
-	    {
-    		synchronized (storageListeners)
-    		{
-    			for(int i=0; i< storageListeners.size(); i++)
-    			{
-    				storageListeners.get(i).notify(obj, operation, type);
-    			}
-    		}
-	    }
-	}
-
-	public void stopNotifications() {
-		notificationsFlag = false;
-	}
-
-	public void startNotifications() {
-		notificationsFlag = true;
-	}
-
-	public boolean isNotificationActive() {
-		return notificationsFlag;
-	}
-
 	public <T> void deleteAllRecords(Class<T> dataClass) throws WPBIOException {
 		SelectRequest selectRequest = new SelectRequest();		
 		selectRequest.withConsistentRead(true).withSelectExpression(build_queryAll_statement("itemName()", dataClass));
 		internalDelete(selectRequest);
-	}
-
-	public String getUniqueId() {
-		return UUID.randomUUID().toString();
 	}
 
 }

@@ -54,10 +54,10 @@ public void test_escapeBacktick()
 	try
 	{
 		String result = Whitebox.invokeMethod(sdbDataStorage, "escapeBacktick", "Te`st");
-		assertTrue (result.equals("Te``st"));
+		assertTrue (result.equals("`Te``st`"));
 
 		result = Whitebox.invokeMethod(sdbDataStorage, "escapeBacktick", "``");
-		assertTrue (result.equals("````"));
+		assertTrue (result.equals("``````"));
 
 	} catch (Exception e)
 	{
@@ -71,7 +71,7 @@ public void test_build_queryAll_statement()
 	try
 	{
 		String result = Whitebox.invokeMethod(sdbDataStorage, "build_queryAll_statement", "*", WPBUri.class);
-		assertTrue (result.equals("select * from test where wpbclass=\"WPBUri\" "));
+		assertTrue (result.equals("select * from `test` where wpbclass=\"WPBUri\" "));
 	} catch (Exception e)
 	{
 		assertTrue (false);

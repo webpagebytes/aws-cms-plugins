@@ -187,7 +187,7 @@ public class WPBAwsSdbAdminDataStorage implements WPBAdminDataStorage {
 	}
 	private String escapeBacktick(String str)
 	{
-		return str.replaceAll("`", "``");
+		return "`" + str.replaceAll("`", "``") + "`";
 	}
 	private<T> String build_queryAll_statement(String selector, Class<T> dataClass)
 	{

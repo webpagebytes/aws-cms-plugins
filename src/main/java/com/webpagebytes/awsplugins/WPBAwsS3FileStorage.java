@@ -1,4 +1,4 @@
-package com.webpagebytes.plugins;
+package com.webpagebytes.awsplugins;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -23,10 +23,10 @@ import com.amazonaws.services.s3.model.CopyObjectRequest;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.amazonaws.services.s3.model.PutObjectResult;
 import com.amazonaws.services.s3.model.S3Object;
+import com.webpagebytes.awsplugins.AWSFileInfo;
 import com.webpagebytes.cms.WPBFileInfo;
 import com.webpagebytes.cms.WPBFilePath;
 import com.webpagebytes.cms.exception.WPBIOException;
-import com.webpagebytes.plugins.AWSFileInfo;
 
 public class WPBAwsS3FileStorage implements com.webpagebytes.cms.WPBFileStorage {
 

@@ -1,4 +1,4 @@
-package com.webpagebytes.plugins;
+package com.webpagebytes.awsplugins;
 
 import static org.junit.Assert.*;
 
@@ -11,6 +11,7 @@ import org.powermock.modules.junit4.PowerMockRunner;
 import org.powermock.reflect.Whitebox;
 
 import com.amazonaws.services.simpledb.AmazonSimpleDBClient;
+import com.webpagebytes.awsplugins.WPBAwsSdbAdminDataStorage;
 import com.webpagebytes.cms.cmsdata.WPBUri;
 
 

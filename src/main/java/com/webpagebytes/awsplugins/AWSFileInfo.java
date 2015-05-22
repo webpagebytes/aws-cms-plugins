@@ -1,4 +1,4 @@
-package com.webpagebytes.plugins;
+package com.webpagebytes.awsplugins;
 
 import java.util.Map;
 

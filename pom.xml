@@ -43,7 +43,7 @@
     <dependency>
         <groupId>com.webpagebytes.cms</groupId>
         <artifactId>webpagebytes-cms</artifactId>
-        <version>1.2-SNAPSHOT</version>
+        <version>1.2</version>
         <scope>compile</scope>
     </dependency>  
     <dependency>

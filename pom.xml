@@ -3,7 +3,7 @@
   <groupId>com.webpagebytes.awsplugins</groupId>
   <artifactId>wpb-aws-plugins</artifactId>
   <packaging>jar</packaging>
-  <version>1.1-SNAPSHOT</version>
+  <version>1.1</version>
   <name>wpb-aws-plugins</name>
   <description>Webpagebytes CMS library plugins to integrate with AWS.</description>
   <url>http://www.webpagebytes.com</url>
@@ -25,7 +25,7 @@
     <connection>scm:git:ssh://git@github.com/webpagebytes/aws-cms-plugins.git</connection>
   	<developerConnection>scm:git:ssh://git@github.com/webpagebytes/aws-cms-plugins.git</developerConnection>
     <url>git@github.com/webpagebytes/aws-cms-plugins.git</url>
-    <tag>HEAD</tag>
+    <tag>wpb-aws-plugins-1.1</tag>
   </scm>
   <dependencies>
     <dependency>
